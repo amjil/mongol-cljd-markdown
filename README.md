@@ -1,9 +1,6 @@
-# mongol_menu_bar
+# mongol_cljd_markdown
 
 A new Flutter project.
-
-![image](mongol-menu-bar.gif)
-
 
 ## Getting Started
 
@@ -19,7 +16,7 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## Credits
-Mongolian Flutter Apps are made possible by the following projects:
+This App is made possible by the following projects:
 
 - [suragch/mongol](https://github.com/suragch/mongol) - Mongolian vertical script widgets for Flutter apps 
 
