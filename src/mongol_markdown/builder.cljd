@@ -1,0 +1,46 @@
+(ns mongol-markdown.builder
+  (:require
+   ["package:flutter/material.dart" :as m]
+   ["package:mongol/mongol.dart" :as mongol]
+   ["package:markdown/markdown.dart" :as md]
+   ["dart:convert" :as convert]
+   [cljd.flutter.alpha2 :as f]
+   [clojure.string :as str]))
+
+(def k-block-tags
+  ["p",
+   "h1",
+   "h2",
+   "h3",
+   "h4",
+   "h5",
+   "h6",
+   "li",
+   "blockquote",
+   "pre",
+   "ol",
+   "ul",
+   "hr",
+   "table",
+   "thead",
+   "tbody",
+   "tr"])
+
+
+(def k-list-tags 
+  ["ul" "ol"])
+
+(defn is-block-tag? [tag] (some #{tag} k-block-tags))
+
+(defn is-list-tag? [tag] (some #{tag} k-list-tags))
+
+(defn parse-markdown [info]
+  (let [^md/Document
+        document (md/Document .blockSyntaxes (:block-syntaxes info)
+                              .inlineSyntaxes (:inline-syntaxes info)
+                              .extensionSet (or (:extension-set info) 
+                                                md/ExtensionSet.gitHubFlavored)
+                              .encodeHtml false)
+        ^#/(List String)
+        lines (.convert (convert/LineSplitter) (:data info))
+        ^#/(List md/Node) ast-nodes (.parseLines document lines)]))
