@@ -39,6 +39,7 @@ for the formatted Markdown view in the demo.
               ")
 
 (defn main []
+  (m.WidgetsFlutterBinding/ensureInitialized)
   (m/runApp
    (m/MaterialApp
     .title "Welcome to Flutter"
@@ -49,18 +50,10 @@ for the formatted Markdown view in the demo.
      .appBar (m/AppBar
               .title (m/Text "Mongolian Markdown"))
      .body
-    ;;  (m/Center
-      ;; .child 
-        (mmd/Markdown
-         .data content
-         .extensionSet md/ExtensionSet.gitHubFlavored)
-       ;;(mgl/MongolText
-       ;; "Hello world"
-       ;; .style (m/TextStyle
-       ;;         .color m.Colors/blue
-       ;;         .fontSize 32.0))
-       )
-
-      ;; )
-    
+     (f/widget
+      :let [md-content (await (.loadString services/rootBundle "assets/markdown_test_page.md"))]
+      (mmd/Markdown
+       .data md-content
+       .imageDirectory "https://raw.githubusercontent.com"
+       .extensionSet md/ExtensionSet.gitHubFlavored)))
     .debugShowCheckedModeBanner false)))
